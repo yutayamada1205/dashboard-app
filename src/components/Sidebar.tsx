@@ -7,12 +7,14 @@ type MenuItem = {
   path: string
 }
 
-type SidebarProps = {
-  menuItems: MenuItem[]
-}
-
-export default function Sidebar({ menuItems }: SidebarProps) {
+export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
+
+  const menuItems: MenuItem[] = [
+    { id: 'dashboard', label: 'ダッシュボード', icon: '📊', path: '/dashboard' },
+    { id: 'users', label: 'ユーザー管理', icon: '👥', path: '/users' },
+    { id: 'settings', label: '設定', icon: '⚙️', path: '/settings' },
+  ];
 
   return (
     <aside
