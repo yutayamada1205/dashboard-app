@@ -59,7 +59,7 @@ export default function Sidebar() {
                     <Icon
                       className={`flex items-center justify-center h-5 w-5 ${
                         !isCollapsed && "mr-3"
-                      }`}
+                      } max-[1000px]:mr-0`}
                     />
 
                     {!isCollapsed && (
