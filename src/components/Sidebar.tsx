@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { LucideIcon, ChevronsLeft, BarChart, Users, Settings } from "lucide-react"
+import { NavLink } from "react-router-dom"
 
 type MenuItem = {
   id: string
@@ -10,9 +11,8 @@ type MenuItem = {
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
-
   const menuItems: MenuItem[] = [
-    { id: 'dashboard', label: 'ダッシュボード', icon: BarChart, path: '/dashboard' },
+    { id: 'dashboard', label: 'ダッシュボード', icon: BarChart, path: '/' },
     { id: 'users', label: 'ユーザー管理', icon: Users, path: '/users' },
     { id: 'settings', label: '設定', icon: Settings, path: '/settings' },
   ];
@@ -48,16 +48,20 @@ export default function Sidebar() {
           {menuItems.map((item) => {
             const Icon = item.icon
               return (
-                <li key={item.id} className="hover:bg-gray-700">
-                  <a
-                    className={`flex items-center w-full ${
-                      isCollapsed ? "justify-center py-4" : "py-3 px-4"
-                    }`}
+                <li key={item.id}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) => {
+                      return `
+                      flex items-center w-full hover:bg-gray-700
+                      ${isCollapsed ? "justify-center py-4" : "py-3 px-4"}
+                      ${isActive ? "bg-gray-700" : ""}`
+                    }}
                   >
                     <Icon
                       className={`flex items-center justify-center h-5 w-5 ${
                         !isCollapsed && "mr-3"
-                      }`}
+                      } max-[1000px]:mr-0`}
                     />
 
                     {!isCollapsed && (
@@ -65,7 +69,7 @@ export default function Sidebar() {
                         {item.label}
                       </span>
                     )}
-                  </a>
+                  </NavLink>
                 </li>
               )            
           })}
