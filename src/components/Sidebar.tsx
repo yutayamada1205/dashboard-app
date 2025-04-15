@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { LucideIcon, ChevronsLeft, BarChart, Users, Settings } from "lucide-react"
+import { Link } from "react-router-dom"
 
 type MenuItem = {
   id: string
@@ -12,7 +13,7 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   const menuItems: MenuItem[] = [
-    { id: 'dashboard', label: 'ダッシュボード', icon: BarChart, path: '/dashboard' },
+    { id: 'dashboard', label: 'ダッシュボード', icon: BarChart, path: '/' },
     { id: 'users', label: 'ユーザー管理', icon: Users, path: '/users' },
     { id: 'settings', label: '設定', icon: Settings, path: '/settings' },
   ];
@@ -49,7 +50,8 @@ export default function Sidebar() {
             const Icon = item.icon
               return (
                 <li key={item.id} className="hover:bg-gray-700">
-                  <a
+                  <Link
+                    to={item.path}
                     className={`flex items-center w-full ${
                       isCollapsed ? "justify-center py-4" : "py-3 px-4"
                     }`}
@@ -65,7 +67,7 @@ export default function Sidebar() {
                         {item.label}
                       </span>
                     )}
-                  </a>
+                  </Link>
                 </li>
               )            
           })}

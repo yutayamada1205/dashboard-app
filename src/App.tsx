@@ -1,11 +1,13 @@
 import './App.css'
 import MainLayout from './layouts/MainLayout'
-import Dashboard from './pages/Dashboard'
-
+import AppRoutes from './routes/AppRoutes'
+import { BrowserRouter } from 'react-router-dom'
 export default function App() {
   return (
-    <MainLayout>
-      <Dashboard />
-    </MainLayout>
+    <BrowserRouter>
+      <MainLayout>
+        <AppRoutes />
+      </MainLayout>
+    </BrowserRouter>
   );
 }
