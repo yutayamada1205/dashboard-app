@@ -31,7 +31,7 @@ export default function Sidebar() {
             メニュー
           </h2>
         )}
-        <button
+        <a
           onClick={() => setIsCollapsed(!isCollapsed)}
           className={`p-2 hover:bg-gray-600 
             transition-all duration-300 transform ${
@@ -47,7 +47,7 @@ export default function Sidebar() {
         <ul className="px-3 space-y-2">
           {menuItems.map((item) => (
             <li key={item.id} className="hover:bg-gray-700">
-              <button
+              <a
                 className={`flex items-center w-full ${
                   isCollapsed ? "justify-center py-4" : "py-3 px-4"
                 }`}
@@ -65,7 +65,7 @@ export default function Sidebar() {
                     {item.label}
                   </span>
                 )}
-              </button>
+              </a>
             </li>
           ))}
         </ul>
