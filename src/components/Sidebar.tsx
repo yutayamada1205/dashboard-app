@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { LucideIcon, ChevronsLeft, BarChart, Users, Settings } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 type MenuItem = {
   id: string
@@ -11,12 +11,22 @@ type MenuItem = {
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const location = useLocation()
 
   const menuItems: MenuItem[] = [
     { id: 'dashboard', label: 'ダッシュボード', icon: BarChart, path: '/' },
     { id: 'users', label: 'ユーザー管理', icon: Users, path: '/users' },
     { id: 'settings', label: '設定', icon: Settings, path: '/settings' },
   ];
+
+  // 現在のパスとメニューのパスが一致するかどうかを確認
+  const isActive = (path: string) => {
+    return location.pathname === path
+  }
+  // アクティブなメニューには背景色を追加
+  const getActiveClass = (path: string) => {
+    return isActive(path) ? "bg-gray-700" : ""
+  }
 
   return (
     <aside
@@ -49,7 +59,7 @@ export default function Sidebar() {
           {menuItems.map((item) => {
             const Icon = item.icon
               return (
-                <li key={item.id} className="hover:bg-gray-700">
+                <li key={item.id} className={`hover:bg-gray-700 ${getActiveClass(item.path)}`}>
                   <Link
                     to={item.path}
                     className={`flex items-center w-full ${
