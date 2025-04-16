@@ -9,11 +9,11 @@ export default function Dashboard() {
   if (isLoading) return <div><span className="inline-block animate-spin border-2 border-gray-300 border-t-gray-900 rounded-full w-5 h-5"></span></div>
   if (!data) return <div>データがありません</div>
 
-  const totalPosts = data?.length ?? 0
-  const totalUsers = new Set(data?.map((post) => post.userId) ?? []).size
+  const totalPosts = data.length
+  const totalUsers = new Set(data.map((post) => post.userId)).size
 
   // 表示用に最初の10件のみを取得
-  const displayPosts = data?.slice(0, 10) ?? []
+  const displayPosts = data.slice(0, 10)
 
   return (
     <div>
@@ -37,7 +37,7 @@ export default function Dashboard() {
       <div className="bg-white p-4 rounded shadow mb-6">
         <h3 className="font-semibold mb-4">投稿一覧（最新10件）</h3>
           <div className="divide-y">
-            <PostList posts={displayPosts ?? []} />
+            <PostList posts={displayPosts} />
           </div>
       </div>
     </div>
