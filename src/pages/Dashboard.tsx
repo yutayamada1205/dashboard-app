@@ -4,16 +4,15 @@ import { Post } from "@/types/api/post"
 import { fetcher } from "@/utils/fetcher"
 
 export default function Dashboard() {
-  const { data, error, isLoading } = useSWR<Post[]>("https://jsonplaceholder.typicode.com/posts", fetcher)
-  if (error) return <div>エラーが発生しました</div>
-  if (isLoading) return <div><span className="inline-block animate-spin border-2 border-gray-300 border-t-gray-900 rounded-full w-5 h-5"></span></div>
-  if (!data) return <div>データがありません</div>
+  const { data: allPosts, error: allPostsError, isLoading: isAllPostsLoading } = useSWR<Post[]>("https://jsonplaceholder.typicode.com/posts", fetcher)
+  const { data: displayPosts, error: displayPostsError, isLoading: isDisplayPostsLoading } = useSWR<Post[]>("https://jsonplaceholder.typicode.com/posts?_limit=10", fetcher)
 
-  const totalPosts = data.length
-  const totalUsers = new Set(data.map((post) => post.userId)).size
+  if (allPostsError || displayPostsError) return <div>エラーが発生しました</div>
+  if (isAllPostsLoading || isDisplayPostsLoading) return <div><span className="inline-block animate-spin border-2 border-gray-300 border-t-gray-900 rounded-full w-5 h-5"></span></div>
+  if (!allPosts || !displayPosts) return <div>データがありません</div>
 
-  // 表示用に最初の10件のみを取得
-  const displayPosts = data.slice(0, 10)
+  const totalPosts = allPosts.length
+  const totalUsers = new Set(allPosts.map((post) => post.userId)).size
 
   return (
     <div>
