@@ -1,17 +1,13 @@
-import { ReactNode } from 'react'
 import Sidebar from '../components/Sidebar'
 import MainContent from '../components/MainContent'
+import { Outlet } from 'react-router-dom'
 
-type MainLayoutProps = {
-  children: ReactNode
-}
-
-export default function MainLayout({ children }: MainLayoutProps){
+export default function MainLayout(){
   return (
     <div className="flex h-screen">
       <Sidebar />
       <MainContent>
-        {children}
+        <Outlet />
       </MainContent>
     </div>
   )
