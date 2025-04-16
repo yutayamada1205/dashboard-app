@@ -69,10 +69,6 @@ export default function Users() {
       header: "会社名",
       cell: (props) => props.row.original.company.name,
     }),
-    columnHelper.accessor(row => row.website, {
-      header: "ウェブサイト",
-      cell: (props) => props.row.original.website,
-    }),
   ]
 
   const table = useReactTable({
