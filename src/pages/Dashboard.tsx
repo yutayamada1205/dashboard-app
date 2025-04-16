@@ -1,13 +1,10 @@
 import useSWR from "swr"
-import PostList from "../components/PostList"
-import { Post } from "../types/api/post"
-
-async function fetcher(key: string) {
-  return fetch(key).then((res) => res.json() as Promise<Post[]>)
-}
+import PostList from "@/components/PostList"
+import { Post } from "@/types/api/post"
+import { fetcher } from "@/utils/fetcher"
 
 export default function Dashboard() {
-  const { data, error, isLoading } = useSWR("https://jsonplaceholder.typicode.com/posts", fetcher)
+  const { data, error, isLoading } = useSWR<Post[]>("https://jsonplaceholder.typicode.com/posts", fetcher)
 
   const totalPosts = data?.length ?? 0
   const totalUsers = new Set(data?.map((post) => post.userId) ?? []).size

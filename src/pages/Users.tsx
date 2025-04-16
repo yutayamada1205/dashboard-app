@@ -1,4 +1,6 @@
 import useSWR from "swr"
+import { fetcher } from "@/utils/fetcher"
+import { User } from "@/types/api/user"
 import {
   useReactTable,
   getCoreRowModel,
@@ -7,36 +9,8 @@ import {
   createColumnHelper
 } from "@tanstack/react-table"
 
-type User = {
-  id: number
-  name: string
-  username: string
-  email: string
-  address: {
-    street: string
-    suite: string
-    city: string
-    zipcode: string
-    geo: {
-      lat: string
-      lng: string
-    }
-  }
-  phone: string
-  website: string
-  company: {
-    name: string
-    catchPhrase: string
-    bs: string
-  }
-}
-
-async function fetcher(key: string) {
-  return fetch(key).then((res) => res.json() as Promise<User[]>)
-}
-
 export default function Users() {
-  const { data, error, isLoading } = useSWR("https://jsonplaceholder.typicode.com/users", fetcher)
+  const { data, error, isLoading } = useSWR<User[]>("https://jsonplaceholder.typicode.com/users", fetcher)
 
   const columnHelper = createColumnHelper<User>()
 
@@ -159,5 +133,5 @@ export default function Users() {
           )}
         </div>
       </div>
-    )
-  }
+  )
+}
