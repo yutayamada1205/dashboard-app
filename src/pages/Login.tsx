@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
+import { z } from 'zod'
 
 const formSchema = z.object({
   email: z.string().min(1, { message: 'メールアドレスを入力してください。' }),
