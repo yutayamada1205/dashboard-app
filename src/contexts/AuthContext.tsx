@@ -21,8 +21,20 @@ const mockUser = {
   password: 'password'
 }
 
+// デフォルト値の定義
+const defaultAuthContext: AuthContextType = {
+  user: null,
+  login: () => {
+    throw new Error('loginはAuthProviderの内側でのみ使用できます')
+  },
+  logout: () => {
+    throw new Error('logoutはAuthProviderの内側でのみ使用できます')
+  },
+  isAuthenticated: false
+}
+
 // コンテキストを作成
-export const AuthContext = createContext<AuthContextType | undefined>(undefined)
+export const AuthContext = createContext<AuthContextType>(defaultAuthContext)
 
 // 認証プロバイダーを作成
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
