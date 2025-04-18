@@ -27,7 +27,7 @@ export default function Sidebar() {
       {/* タイトルエリア */}
       <div className="px-5 py-6 flex items-center justify-between max-[1000px]:hidden">
         {!isCollapsed && (
-          <h2 className="text-xl font-bold">
+          <h2 className="text-lg font-bold">
             メニュー
           </h2>
         )}
@@ -43,7 +43,7 @@ export default function Sidebar() {
       </div>
 
       {/* メニューエリア */}
-      <nav className="mt-8">
+      <nav className="mt-2">
         <ul className="px-3 space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon
