@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useAuth } from '@/hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 const formSchema = z.object({
   email: z.string().min(1, { message: 'メールアドレスを入力してください。' }),
@@ -9,12 +11,24 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+  const { register, handleSubmit, formState: { errors }, setError } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data)
+    try {
+      const success = login(data.email, data.password)
+      if (success) {
+        navigate('/')
+      } else {
+        setError("password", { message: 'メールアドレスまたはパスワードが正しくありません。' })
+      }
+    } catch (error) {
+      setError("password", { message: 'ログイン中にエラーが発生しました。' })
+    }
   }
 
   return (
