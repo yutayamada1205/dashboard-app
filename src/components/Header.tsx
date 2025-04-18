@@ -1,5 +1,5 @@
 import { Power } from "lucide-react"
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 export default function Header() {
